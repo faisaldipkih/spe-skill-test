@@ -28,7 +28,15 @@ function parityOutlier($array)
 // NEEDLE IN THE HAYSTACK
 function findNeedle($array, $search)
 {
-    return array_search($search, $array);
+	$index=null;
+	for($i=0;$i<count($array);$i++){
+    	if($array[$i] == $search){
+        	if($index == null){
+            	$index = $i;
+            }
+        }
+    }
+    return $index;
 }
 
 // THE BLUE OCEAN REVERSE
@@ -37,10 +45,7 @@ function blueOcean($array, $value)
     if (gettype($value) != 'array' || gettype($array) != 'array') {
         return false;
     }
-    foreach ($value as $item) {
-        if (($key = array_search($item, $array)) !== false) {
-            unset($array[$key]);
-        }
-    }
+    $array = array_diff($array,$value);
+    $array = array_values($array);
     return $array;
 }
